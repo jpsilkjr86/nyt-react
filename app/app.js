@@ -2,7 +2,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-// import parent compoent
+// imports parent component
 import Main from './components/Main.jsx';
 
 // renders Main component to DOM id "#app"

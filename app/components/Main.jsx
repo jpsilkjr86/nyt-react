@@ -1,7 +1,9 @@
+// imports React Component class
 import React, { Component } from 'react';
 
-// This is the main component.
+// declares Main component as ES6 class, which will be this file's export
 class Main extends Component {
+	
 	// constructor has no props since this is the parent element
 	constructor() {
     super();
@@ -19,6 +21,9 @@ class Main extends Component {
       	<div className="jumbotron text-center">
       		<h1>Heading!</h1>
       		<p>Some text!</p>
+      		<p className="bg-primary">This is some added test text!</p>
+      		<p className="bg-success">This is some added test text!</p>
+      		<p className="bg-warning">This is some added test text!</p>
       	</div>
       </div>
     )
