@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "dev": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "start": "npm run build && NODE_ENV=production node server.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/jpsilkjr86/nyt-react/issues"
   },
-  "homepage": "https://github.com/jpsilkjr86/nyt-react#readme"
+  "homepage": "https://github.com/jpsilkjr86/nyt-react#readme",
+  "dependencies": {
+    "express": "^4.15.4",
+    "webpack": "^3.5.5"
+  },
+  "devDependencies": {
+    "webpack-dev-middleware": "^1.12.0"
+  }
 }
