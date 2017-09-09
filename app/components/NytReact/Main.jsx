@@ -6,6 +6,9 @@ import { Route } from 'react-router-dom';
 import Search from './Main/Search.jsx';
 import SavedArticles from './Main/SavedArticles.jsx';
 
+// imports axios for routing / server communication
+import axios from 'axios';
+
 // declares Main component as ES6 class, which will be this file's export
 class Main extends Component {
 	
@@ -14,19 +17,29 @@ class Main extends Component {
     super();
 
     // set initial state
-  //   this.state = { 
-		// 	someproperty: somevalue
-		// };
+    this.state = { 
+			searchQuery: ''
+		};
 
+    this.handleSearch = this.handleSearch.bind(this);
 	} // end of constructor
+
+  handleSearch(query) {
+    console.log('query:');
+    console.log(query);
+    axios.post('/search').then(data => {
+      console.log(data);
+    });
+  }
 
 	render() {
     return (
       <main>
         <div className="container">
-        	<Route exact path="/" component={Search}/>
+          {/* use "render=" instead of "component=" in order to pass props through routes */}
+        	<Route exact path="/" render={(props) => <Search onSearch={this.handleSearch}/>}/>
           <Route exact path="/articles/saved" component={SavedArticles}/>
-        </div> {/* end of container */}
+        </div>
       </main>
     );
   } // end of render

@@ -8,15 +8,20 @@ import SearchForm from './Search/SearchForm.jsx';
 class Search extends Component {
 	
 	// constructor has no props since this is the parent element
-	constructor() {
-    super();
+	constructor(props) {
+    super(props);
 
     // set initial state
   //   this.state = { 
 		// 	someproperty: somevalue
 		// };
 
+    this.onSearch = this.onSearch.bind(this);
 	} // end of constructor
+
+  onSearch(query) {
+    this.props.onSearch(query);
+  }
 
 	render() {
     return (
@@ -25,7 +30,7 @@ class Search extends Component {
       		<h1 className="text-center">Search New York Times API</h1>
       	</div>
         <div className="panel-body">
-          <SearchForm/>
+          <SearchForm onSearch={this.props.onSearch}/>
       	</div>
       </div>
     )

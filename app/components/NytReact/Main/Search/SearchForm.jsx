@@ -5,8 +5,8 @@ import React, { Component } from 'react';
 class SearchForm extends Component {
 	
 	// constructor has no props since this is the parent element
-	constructor() {
-    super();
+	constructor(props) {
+    super(props);
 
     // set initial state
     this.state = { 
@@ -32,7 +32,7 @@ class SearchForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log(this.state);
+    this.props.onSearch(this.state);
     this.setState({
       topic: '',
       start_year: '',
