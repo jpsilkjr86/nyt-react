@@ -1,5 +1,10 @@
 // imports React Component class
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+
+// import child components
+import Search from './Main/Search.jsx';
+import SavedArticles from './Main/SavedArticles.jsx';
 
 // declares Main component as ES6 class, which will be this file's export
 class Main extends Component {
@@ -17,16 +22,13 @@ class Main extends Component {
 
 	render() {
     return (
-      <div className="container">
-      	<div className="jumbotron text-center">
-      		<h1>Heading!</h1>
-      		<p>Some text!</p>
-      		<p className="bg-primary">This is some added test text!</p>
-      		<p className="bg-success">This is some added test text!</p>
-      		<p className="bg-warning">This is some added test text!</p>
-      	</div>
-      </div>
-    )
+      <main>
+        <div className="container">
+        	<Route exact path="/" component={Search}/>
+          <Route exact path="/articles/saved" component={SavedArticles}/>
+        </div> {/* end of container */}
+      </main>
+    );
   } // end of render
 
 } // end of class

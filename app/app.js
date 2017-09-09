@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 
 // imports parent component
-import Main from './components/Main.jsx';
+import NytReact from './components/NytReact.jsx';
 
-// renders Main component to DOM id "#app"
-render(<Main />, document.getElementById("app"));
+// renders parent component to DOM id "#app"
+render(NytReact, document.getElementById("app"));
