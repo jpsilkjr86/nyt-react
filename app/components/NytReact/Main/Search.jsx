@@ -1,6 +1,9 @@
 // imports React Component class
 import React, { Component } from 'react';
 
+// imports SearchForm component
+import SearchForm from './Search/SearchForm.jsx';
+
 // declares Search component as ES6 class, which will be this file's export
 class Search extends Component {
 	
@@ -19,10 +22,10 @@ class Search extends Component {
     return (
       <div className="panel panel-default">
       	<div className="panel-heading">
-      		<h1>Search</h1>
+      		<h1 className="text-center">Search New York Times API</h1>
       	</div>
         <div className="panel-body">
-          <p>Some text</p>
+          <SearchForm/>
       	</div>
       </div>
     )
