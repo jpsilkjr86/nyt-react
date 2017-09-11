@@ -22,7 +22,7 @@ class Search extends Component {
     return (
       <div className="panel panel-default">
       	<div className="panel-heading">
-      		<h1 className="text-center">Search New York Times API</h1>
+      		<h3 className="text-center">Search New York Times</h3>
       	</div>
         <div className="panel-body">
           {/* sends parent onSearch function to child function for sending data up heirarchy */}

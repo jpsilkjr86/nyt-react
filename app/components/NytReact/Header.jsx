@@ -30,7 +30,10 @@ class Header extends Component {
 								<span className="icon-bar"></span>
 								<span className="icon-bar"></span>
 							</button>
-							<div className="navbar-brand"><Link to="/">NYT Search (React!)</Link></div>
+							<div className="navbar-brand"><Link to="/">NYT React!</Link></div>
+							<a className="navbar-brand" href="http://developer.nytimes.com">
+								<img src="/assets/img/nytimes_65a.png" alt="NYT-logo"/>
+							</a>
 						</div> {/* end of navbar-header */}
 						{/* collect the nav links, forms, and other content for toggling collapse */}
 						<div className="collapse navbar-collapse" id="navbar-menu">

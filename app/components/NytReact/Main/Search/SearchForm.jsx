@@ -50,12 +50,8 @@ class SearchForm extends Component {
   // performs search post request, sends results to parent
   executeSearch(query) {
     // executes post request using axios
-    axios.post('/search').then(response => {
+    axios.post('/search', query).then(response => {
       const results = response.data;
-      console.log('query on searchform:');
-      console.log(query);
-      console.log('results on searchform:');
-      console.log(results);
       // sends query and results to parent through inherited function onSearch()
       this.props.onSearch(query, results);
     });

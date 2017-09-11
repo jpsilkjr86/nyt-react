@@ -1,9 +1,23 @@
+// imports helpers object
+const helpers = require('../helpers/helpers.js');
+
 // exports as function which takes in app as parameter
 module.exports = app => {
 	// post route for submitting search, which queries API and res.send's results as json
 	app.post('/search', (req, res) => {
-		console.log(req.body);
-		res.json({response: "test response"});
+		// saves search parameters as temp constables
+		const topic = req.body.topic,
+			start_year = req.body.start_year,
+			end_year = req.body.end_year;
+		// calls helpers.nyt.search, a promise, and sends back result to client
+		helpers.nyt.search(topic, start_year, end_year).then(results => {
+			console.log('RESULTS FOUND! NUMBER OF RETRIEVED ARTICLES: ' + results.length);
+			res.json(results);
+		}).catch(err => {
+			console.log(err);
+			console.log('SERVER ENCOUNTERED ERROR EXECUTING SEARCH (SEE ERR LOG)');
+			res.send('Server encountered error executing search.');
+		});
 	});
 
 	// get route for obtaining saved articles in json
