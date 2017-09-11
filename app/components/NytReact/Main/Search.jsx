@@ -15,13 +15,8 @@ class Search extends Component {
   //   this.state = { 
 		// 	someproperty: somevalue
 		// };
-
-    this.onSearch = this.onSearch.bind(this);
+    
 	} // end of constructor
-
-  onSearch(query) {
-    this.props.onSearch(query);
-  }
 
 	render() {
     return (
