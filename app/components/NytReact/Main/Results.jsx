@@ -15,14 +15,7 @@ class Results extends Component {
 		};
     console.log('results:');
     console.log(this.state.searchResults);
-
-    this.clearResults = this.clearResults.bind(this);
-
 	} // end of constructor
-
-  clearResults() {
-    this.props.clearResults();
-  }
 
 	render() {
     return (
@@ -32,7 +25,7 @@ class Results extends Component {
       	</div>
         <div className="panel-body">
           <p></p>
-          <button className="btn btn-warning pull-right" onClick={this.clearResults}>Clear</button>
+          <button className="btn btn-warning pull-right" onClick={this.props.clearResults}>Clear</button>
       	</div>
       </div>
     )

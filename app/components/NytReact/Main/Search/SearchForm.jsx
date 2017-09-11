@@ -1,6 +1,9 @@
 // imports React Component class
 import React, { Component } from 'react';
 
+// imports axios for routing / server communication
+import axios from 'axios';
+
 // declares SearchForm component as ES6 class, which will be this file's export
 class SearchForm extends Component {
 	
@@ -29,14 +32,32 @@ class SearchForm extends Component {
       [name]: value
     });
   }
-
+  // handler for form submit event
   handleSubmit(event) {
+    // prevents default form behavior
     event.preventDefault();
-    this.props.onSearch(this.state);
+    // saves search data into temporary constable
+    const query = this.state;
+    // clears state data, triggering re-rendering of component to empty form
     this.setState({
       topic: '',
       start_year: '',
       end_year: ''
+    });
+    // sends query to executeSearch()
+    this.executeSearch(query);
+  }
+  // performs search post request, sends results to parent
+  executeSearch(query) {
+    // executes post request using axios
+    axios.post('/search').then(response => {
+      const results = response.data;
+      console.log('query on searchform:');
+      console.log(query);
+      console.log('results on searchform:');
+      console.log(results);
+      // sends query and results to parent through inherited function onSearch()
+      this.props.onSearch(query, results);
     });
   }
 

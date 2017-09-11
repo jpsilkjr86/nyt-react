@@ -3,7 +3,7 @@ module.exports = app => {
 	// post route for submitting search, which queries API and res.send's results as json
 	app.post('/search', (req, res) => {
 		console.log(req.body);
-		res.json(req.body);
+		res.json({response: "test response"});
 	});
 
 	// get route for obtaining saved articles in json

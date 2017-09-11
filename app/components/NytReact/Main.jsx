@@ -7,9 +7,6 @@ import Search from './Main/Search.jsx';
 import SavedArticles from './Main/SavedArticles.jsx';
 import Results from './Main/Results.jsx';
 
-// imports axios for routing / server communication
-import axios from 'axios';
-
 // declares Main component as ES6 class, which will be this file's export
 class Main extends Component {
 	
@@ -28,17 +25,23 @@ class Main extends Component {
     this.clearResults = this.clearResults.bind(this);
 	} // end of constructor
 
-  handleSearch(query) {
-    console.log('query:');
+  handleSearch(query, results) {
+    console.log('query on Main:');
     console.log(query);
-    // axios.post('/search').then(results => {
-    //   console.log(results);
-    // });
+    console.log('results on Main:');
+    console.log(results);
+
+    // saves results and history as new data pointers 
+    // (important for react to do this instead of mutating original data)
+    const newSearchResults = results,
+      newSearchHistory = [...this.state.searchHistory, query];
+
+    // replaces state data with new data, triggering re-rendering of components
+    this.setState({
+      searchResults: newSearchResults
+    });
     this.setState(prevState => ({
       searchHistory: [...prevState.searchHistory, query]
-    }));
-    this.setState(prevState => ({
-      searchResults: [...prevState.searchResults, query]
     }));
   }
 
@@ -56,6 +59,7 @@ class Main extends Component {
           {/* use "render=" instead of "component=" in order to pass props through routes */}
         	<Route exact path="/" render={(props) => <Search onSearch={this.handleSearch}/>}/>
           <Route exact path="/articles/saved" component={SavedArticles}/>
+          {/* only displays results if the results array is not empty */}
           {this.state.searchResults.length != 0 &&
             <Results 
               searchHistory={this.state.searchHistory}

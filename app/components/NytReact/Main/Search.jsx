@@ -25,6 +25,7 @@ class Search extends Component {
       		<h1 className="text-center">Search New York Times API</h1>
       	</div>
         <div className="panel-body">
+          {/* sends parent onSearch function to child function for sending data up heirarchy */}
           <SearchForm onSearch={this.props.onSearch}/>
       	</div>
       </div>
