@@ -13,7 +13,13 @@ const helpers = {
 			// returns promise that resolves with results or rejects with raw response data or err
 			return new Promise ( (resolve, reject) => {
 				// builds params object
-				const params = {q: topic, "api-key": helpers.nyt.apiKey};
+				const params = {
+					q: topic,
+					"api-key": helpers.nyt.apiKey,
+					sort: "newest",
+					fq: "document_type:article"
+				};
+				// adds begin_date and end_date parameters if necessary
 				if (start_year != '') {
 					params.begin_date = start_year + '0101';
 				} if (end_year != '') {

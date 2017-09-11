@@ -53,7 +53,7 @@ class SearchForm extends Component {
     axios.post('/search', query).then(response => {
       const results = response.data;
       // sends query and results to parent through inherited function onSearch()
-      this.props.onSearch(query, results);
+      return this.props.onSearch(query, results);
     }).catch(err => {
       console.log('Error performing ajax post request');
       console.log(err);

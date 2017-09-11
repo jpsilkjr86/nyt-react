@@ -38,11 +38,9 @@ class Main extends Component {
 
     // replaces state data with new data, triggering re-rendering of components
     this.setState({
-      searchResults: newSearchResults
+      searchResults: newSearchResults,
+      searchHistory: newSearchHistory
     });
-    this.setState(prevState => ({
-      searchHistory: [...prevState.searchHistory, query]
-    }));
   }
 
   clearResults() {
@@ -67,7 +65,6 @@ class Main extends Component {
               clearResults={this.clearResults}
             />
           }
-          
         </div>
       </main>
     );
