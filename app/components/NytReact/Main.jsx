@@ -28,6 +28,8 @@ class Main extends Component {
   handleSearch(query, results) {
     console.log('query:');
     console.log(query);
+    console.log('results:');
+    console.log(results);
 
     // saves results and history as new data pointers 
     // (important for react to do this instead of mutating original data)
