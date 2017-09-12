@@ -22,7 +22,14 @@ class Results extends Component {
           <SnippetCollection>
             {/* generates n number of ArticleSnippets */}
             {this.props.searchResults.map((article, i) => {
-              return <ArticleSnippet key={article._id} article={article}/>
+              return (
+                <ArticleSnippet
+                    key={article._id}
+                    article={article}
+                    onSaveClick={this.props.onSaveClick}
+                    index={i}
+                />
+              );
             })}
           </SnippetCollection>
           <button className="btn btn-warning pull-right" onClick={this.props.clearResults}>Clear</button>

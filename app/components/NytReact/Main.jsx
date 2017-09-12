@@ -23,6 +23,7 @@ class Main extends Component {
 
     this.handleSearch = this.handleSearch.bind(this);
     this.clearResults = this.clearResults.bind(this);
+    this.handleSaveClick = this.handleSaveClick.bind(this);
 	} // end of constructor
 
   handleSearch(query, results) {
@@ -50,6 +51,15 @@ class Main extends Component {
     });
   }
 
+  handleSaveClick(articleId, index) {
+    console.log(articleId);
+    const updatedResults = [...this.state.searchResults];
+    updatedResults[index].saved = true;
+    this.setState({
+        searchResults: updatedResults
+    });
+  }
+
 	render() {
     return (
       <main>
@@ -63,6 +73,7 @@ class Main extends Component {
               searchHistory={this.state.searchHistory}
               searchResults={this.state.searchResults}
               clearResults={this.clearResults}
+              onSaveClick={this.handleSaveClick}
             />
           }
         </div>

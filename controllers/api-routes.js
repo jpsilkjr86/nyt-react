@@ -12,7 +12,16 @@ module.exports = app => {
 		// calls helpers.nyt.search, a promise, and sends back result to client
 		helpers.nyt.search(topic, start_year, end_year).then(results => {
 			console.log('RESULTS FOUND! NUMBER OF RETRIEVED ARTICLES: ' + results.length);
-			res.json(results);
+			// early returns if there are no articles to sync
+			if (!results.length) {
+				return res.json([]);
+			}
+			// otherwise continues promise chain by syncing results with database
+			console.log('SYNCING RESULTS WITH DATABASE...');
+			return helpers.nyt.dbSync(results);
+		}).then(articles => {
+			console.log('SYNCING COMPLETE! SENDING ARTICLES BACK TO CLIENT.');
+			res.json(articles);
 		}).catch(err => {
 			console.log(err);
 			console.log('SERVER ENCOUNTERED ERROR EXECUTING SEARCH (SEE ERR LOG)');

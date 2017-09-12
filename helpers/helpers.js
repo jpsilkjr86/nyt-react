@@ -1,6 +1,9 @@
 // imports axios for promisified server requests
 const axios = require('axios');
 
+// imports database models
+const Article = require('../models/Article.js');
+
 // instantiates object to be exported
 const helpers = {
 	// nyt sub-object
@@ -44,7 +47,31 @@ const helpers = {
 		    	reject(err);
 		    }); // end of axios promise
 			}); // end of returned Promise
-		} // end of helpers.nyt.search
+		}, // end of helpers.nyt.search
+		// syncs NY-Times articles with database
+		dbSync: (results) => {
+			// declared promisesAry as temp array
+			const promisesAry = [];
+			// loop through results and builds array of promises for saving articles to database
+			for (let i = 0; i < results.length; i++) {
+				// generate new promise for each article and pushes them onto promisesAry
+				let query = {link: results[i].web_url};
+				let newData = {
+					headline: results[i].headline.main,
+					summary: results[i].snippet,
+					byline: results[i].byline.original,
+					date: results[i].pub_date
+				};
+				// ensures that article is upserted, the doc in callback reflects 
+				// updated data, and defaults are set upon upsert (usually doesnt happen)
+				// https://stackoverflow.com/questions/25755521/mongoose-upsert-does-not-create-default-schema-property
+				let options = {upsert: true, new: true, setDefaultsOnInsert: true};
+				// push promise of exec() onto promisesAry
+				promisesAry.push(Article.findOneAndUpdate(query, newData, options).exec());
+			} // end of for-loop
+			// returns Promise.all of promisesAry array
+			return Promise.all(promisesAry);
+		} // end of helpers.nyt.dbSync
 	} // end of helpers.nyt sub-object
 };
 
