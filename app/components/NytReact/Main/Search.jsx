@@ -8,14 +8,17 @@ import SearchForm from './Search/SearchForm.jsx';
 const Search = props => {
 
     return (
-      <div className="panel panel-default">
-      	<div className="panel-heading">
-      		<h3 className="text-center">Search New York Times</h3>
-      	</div>
-        <div className="panel-body">
-          {/* sends parent onSearch function to child function for sending data up heirarchy */}
-          <SearchForm onSearch={props.onSearch}/>
-      	</div>
+      <div>
+        <div className="panel panel-default">
+        	<div className="panel-heading">
+        		<h3 className="text-center">Search New York Times</h3>
+        	</div>
+          <div className="panel-body">
+            {/* sends parent onSearch function to child function for sending data up heirarchy */}
+            <SearchForm onSearch={props.onSearch}/>
+        	</div>
+        </div>
+        {props.children}
       </div>
     );
 
