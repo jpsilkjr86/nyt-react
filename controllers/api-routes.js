@@ -31,13 +31,31 @@ module.exports = app => {
 
 	// get route for obtaining saved articles in json
 	app.get('/articles/saved/all', (req, res) => {
-		res.json({response: "test response"});
+		console.log('RETRIEVING SAVED ARTICLES...');
+		// calls helpers function for retrieving saved articles
+		helpers.articles.getSaved().then(results => {
+			console.log(results.length + ' ARTICLES FOUND! SENDING BACK TO CLIENT...');
+			res.json(results);
+		}).catch(err => {
+			console.log(err);
+			console.log('ERROR RETRIEVING SAVED ARTICLES (SEE LOG)');
+			res.send('Error: server was unable to retrieve saved articles.');
+		});
 	});
 
 	// route for saving an article
 	app.post('/articles/:id/save', (req, res) => {
-		console.log(req.body);
-		res.json({response: "Save POST request received", data: req.body});
+		console.log('SAVING ARTICLE OF ID ' + req.params.id + '...');
+		// saves article through helper function
+		helpers.articles.save(req.params.id).then(result => {
+			console.log(result);
+			console.log('ARTICLE SAVED!');
+			res.send('Article successfully saved!');
+		}).catch(err => {
+			console.log(err);
+			console.log('ERROR SAVING ARTICLE (SEE LOG)');
+			res.send('Error: server was unable to save article.');
+		});
 	});
 
 	// route for unsaving an article

@@ -28,6 +28,7 @@ class Main extends Component {
     this.clearResults = this.clearResults.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
     this.executeSearch = this.executeSearch.bind(this);
+    this.executeSave = this.executeSave.bind(this);
 	} // end of constructor
 
   handleSearch(query) {
@@ -37,12 +38,10 @@ class Main extends Component {
     this.executeSearch(query);
   }
 
-  // performs search post request, sends results to parent
+  // performs search post request, changes state
   executeSearch(query) {
     // executes post request using axios
     axios.post('/search', query).then(results => {
-      // const results = response.data;
-    
       // saves results and history as new data pointers 
       // (important for react to do this instead of mutating original data)
       const newSearchResults = results.data,
@@ -68,10 +67,26 @@ class Main extends Component {
 
   handleSaveClick(articleId, index) {
     console.log(articleId);
-    const updatedResults = [...this.state.searchResults];
-    updatedResults[index].saved = true;
-    this.setState({
-        searchResults: updatedResults
+
+    this.executeSave(articleId, index);
+  }
+
+  // performs save post request, changes state
+  executeSave(articleId, index) {
+    // executes post request using axios
+    axios.post('/articles/' + articleId + '/save').then(results => {
+      console.log(results);
+      // instantiates updatedResults and copy of searchResults
+      const updatedResults = [...this.state.searchResults];
+      // changes saved value to true for designated element
+      updatedResults[index].saved = true;
+      // updates state which will trigger re-rendering
+      this.setState({
+          searchResults: updatedResults
+      });
+    }).catch(err => {
+      console.log('Error performing save post request');
+      console.log(err);
     });
   }
 

@@ -72,7 +72,22 @@ const helpers = {
 			// returns Promise.all of promisesAry array
 			return Promise.all(promisesAry);
 		} // end of helpers.nyt.dbSync
-	} // end of helpers.nyt sub-object
+	}, // end of helpers.nyt sub-object
+	// helpers sub-object for handling articles in database
+	articles: {
+		// method for saving article to database
+		save: id => {
+			return Article.findById(id).exec().then(article => {
+				article.saved = true;
+				console.log(article);
+				return article.save();
+			});
+		}, // end of helpers.articles.save
+		// method for retrieving all saved articles
+		getSaved: () => {
+			return Article.find({saved: true}).exec();
+		} // end of helpers.articles.getSaved
+	} // end of helpers.articles sub-object
 };
 
 module.exports = helpers;
