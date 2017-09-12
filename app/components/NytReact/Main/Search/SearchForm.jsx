@@ -1,9 +1,6 @@
 // imports React Component class
 import React, { Component } from 'react';
 
-// imports axios for routing / server communication
-import axios from 'axios';
-
 // declares SearchForm component as ES6 class, which will be this file's export
 class SearchForm extends Component {
 	
@@ -44,20 +41,9 @@ class SearchForm extends Component {
       start_year: '',
       end_year: ''
     });
-    // sends query to executeSearch()
-    this.executeSearch(query);
-  }
-  // performs search post request, sends results to parent
-  executeSearch(query) {
-    // executes post request using axios
-    axios.post('/search', query).then(response => {
-      const results = response.data;
-      // sends query and results to parent through inherited function onSearch()
-      return this.props.onSearch(query, results);
-    }).catch(err => {
-      console.log('Error performing ajax post request');
-      console.log(err);
-    });
+
+    // sends query and results to parent through inherited function onSearch()
+    this.props.onSearch(query);
   }
 
 	render() {

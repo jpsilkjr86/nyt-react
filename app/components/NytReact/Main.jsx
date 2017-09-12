@@ -7,6 +7,9 @@ import Search from './Main/Search.jsx';
 import SavedArticles from './Main/SavedArticles.jsx';
 import Results from './Main/Results.jsx';
 
+// imports axios for routing / server communication
+import axios from 'axios';
+
 // declares Main component as ES6 class, which will be this file's export
 class Main extends Component {
 	
@@ -24,23 +27,35 @@ class Main extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.clearResults = this.clearResults.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
+    this.executeSearch = this.executeSearch.bind(this);
 	} // end of constructor
 
-  handleSearch(query, results) {
+  handleSearch(query) {
     console.log('query:');
     console.log(query);
-    console.log('results:');
-    console.log(results);
+    // passes query to executeSearch function
+    this.executeSearch(query);
+  }
 
-    // saves results and history as new data pointers 
-    // (important for react to do this instead of mutating original data)
-    const newSearchResults = results,
-      newSearchHistory = [...this.state.searchHistory, query];
+  // performs search post request, sends results to parent
+  executeSearch(query) {
+    // executes post request using axios
+    axios.post('/search', query).then(results => {
+      // const results = response.data;
+    
+      // saves results and history as new data pointers 
+      // (important for react to do this instead of mutating original data)
+      const newSearchResults = results.data,
+        newSearchHistory = [...this.state.searchHistory, query];
 
-    // replaces state data with new data, triggering re-rendering of components
-    this.setState({
-      searchResults: newSearchResults,
-      searchHistory: newSearchHistory
+      // replaces state data with new data, triggering re-rendering of components
+      this.setState({
+        searchResults: newSearchResults,
+        searchHistory: newSearchHistory
+      });
+    }).catch(err => {
+      console.log('Error performing ajax post request');
+      console.log(err);
     });
   }
 

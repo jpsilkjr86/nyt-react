@@ -5,20 +5,8 @@ import React, { Component } from 'react';
 import SearchForm from './Search/SearchForm.jsx';
 
 // declares Search component as ES6 class, which will be this file's export
-class Search extends Component {
-	
-	// constructor has no props since this is the parent element
-	constructor(props) {
-    super(props);
+const Search = props => {
 
-    // set initial state
-  //   this.state = { 
-		// 	someproperty: somevalue
-		// };
-    
-	} // end of constructor
-
-	render() {
     return (
       <div className="panel panel-default">
       	<div className="panel-heading">
@@ -26,13 +14,12 @@ class Search extends Component {
       	</div>
         <div className="panel-body">
           {/* sends parent onSearch function to child function for sending data up heirarchy */}
-          <SearchForm onSearch={this.props.onSearch}/>
+          <SearchForm onSearch={props.onSearch}/>
       	</div>
       </div>
-    )
-  } // end of render
+    );
 
-} // end of class
+};
 
 // exports Search component for other files to use
 export default Search;
