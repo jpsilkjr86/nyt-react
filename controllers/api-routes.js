@@ -43,6 +43,21 @@ module.exports = app => {
 		});
 	});
 
+	// route for retrieving article data for a single article
+	app.get('/articles/:id', (req, res) => {
+		console.log('GETTING ARTICLE DATA FOR ID ' + req.params.id + '...');
+		// fetches article data via helper function
+		helpers.articles.getOne(req.params.id).then(result => {
+			console.log(result);
+			console.log('ARTICLE FOUND! RETURNING DATA TO CLIENT.');
+			res.json(result);
+		}).catch(err => {
+			console.log(err);
+			console.log('ERROR GETTING ARTICLE DATA (SEE LOG)');
+			res.send('Error: server was unable to retrieve article data.');
+		});
+	});
+
 	// route for saving an article
 	app.post('/articles/:id/save', (req, res) => {
 		console.log('SAVING ARTICLE OF ID ' + req.params.id + '...');

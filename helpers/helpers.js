@@ -85,8 +85,12 @@ const helpers = {
 		}, // end of helpers.articles.save
 		// method for retrieving all saved articles
 		getSaved: () => {
-			return Article.find({saved: true}).exec();
-		} // end of helpers.articles.getSaved
+			return Article.find({saved: true}).sort('-date').exec();
+		}, // end of helpers.articles.getSaved
+		// method for retrieving data for a single article by id
+		getOne: id => {
+			return Article.findById(id).exec();
+		} // end of helpers.articles.getOne
 	} // end of helpers.articles sub-object
 };
 
