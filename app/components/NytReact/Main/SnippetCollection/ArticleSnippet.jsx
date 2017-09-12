@@ -38,7 +38,7 @@ const ArticleSnippet = props => {
         </div>
       </div>
     </li>
-  )
+  );
 };
 
 // exports ArticleSnippet component for other files to use
