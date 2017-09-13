@@ -79,10 +79,16 @@ const helpers = {
 		save: id => {
 			return Article.findById(id).exec().then(article => {
 				article.saved = true;
-				console.log(article);
 				return article.save();
 			});
 		}, // end of helpers.articles.save
+		// method for unsaving article to database
+		unsave: id => {
+			return Article.findById(id).exec().then(article => {
+				article.saved = false;
+				return article.save();
+			});
+		}, // end of helpers.articles.unsave
 		// method for retrieving all saved articles
 		getSaved: () => {
 			return Article.find({saved: true}).sort('-date').exec();

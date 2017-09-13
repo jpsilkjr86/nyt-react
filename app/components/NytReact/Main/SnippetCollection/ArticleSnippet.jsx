@@ -6,13 +6,6 @@ import React, { Component } from 'react';
 const ArticleSnippet = props => {
   // saves as more accessible constable
   const article = props.article;
-  // function that returns the save button's class depending on its saved value
-  function saveBtnClass (isSaved) {
-    if (isSaved) {
-      return 'btn btn-sm btn-success';
-    }
-    return 'btn btn-sm btn-default';
-  }
 
   return (
     <li className="list-group-item">
@@ -21,12 +14,12 @@ const ArticleSnippet = props => {
           <a href={article.link}><h4>{article.headline}</h4></a>
         </div>
         <div className="col-xs-3 col-sm-2 col-md-1">
-          <button className={saveBtnClass(article.saved)}
-              data-id={article._id}
-              onClick={() => props.onSaveClick(article._id, props.index)}>
-              {/* give onClick a callback or else onSaveClick() will call automatically */}
-            <span className="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-          </button>
+          <SaveButton 
+            article={article}
+            onSaveClick={props.onSaveClick}
+            onUnsaveClick={props.onUnsaveClick}
+            index={props.index}
+          />
         </div>
       </div>
       <div className="row">
@@ -40,6 +33,34 @@ const ArticleSnippet = props => {
     </li>
   );
 };
+
+// sub-component that returns SaveButton with different behavior
+// depending on whether or not article is saved.
+const SaveButton = props => {
+  // saves as more accessible constable
+  const article = props.article;
+  
+  if (article.saved) {
+    return (
+      <button className="btn btn-sm btn-success"
+          data-id={article._id}
+          onClick={() => props.onUnsaveClick(article._id, props.index)}>
+          {/* give onClick a callback or else onSaveClick() will call automatically */}
+        <span className="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+      </button>
+    );
+  }
+  else {
+    return (
+      <button className="btn btn-sm btn-default"
+          data-id={article._id}
+          onClick={() => props.onSaveClick(article._id, props.index)}>
+          {/* give onClick a callback or else onSaveClick() will call automatically */}
+        <span className="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+      </button>
+    )
+  }
+}
 
 // exports ArticleSnippet component for other files to use
 export default ArticleSnippet;

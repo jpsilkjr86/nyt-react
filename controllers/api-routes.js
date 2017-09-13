@@ -75,7 +75,16 @@ module.exports = app => {
 
 	// route for unsaving an article
 	app.post('/articles/:id/unsave', (req, res) => {
-		console.log(req.body);
-		res.json({response: "Unave POST request received", data: req.body});
+		console.log('UNSAVING ARTICLE OF ID ' + req.params.id + '...');
+		// unsaves article through helper function
+		helpers.articles.unsave(req.params.id).then(result => {
+			console.log(result);
+			console.log('ARTICLE UNSAVED.');
+			res.send('Article successfully unsaved.');
+		}).catch(err => {
+			console.log(err);
+			console.log('ERROR UNSAVING ARTICLE (SEE LOG)');
+			res.send('Error: server was unable to unsave article.');
+		});
 	});
 };

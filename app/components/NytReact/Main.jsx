@@ -25,11 +25,13 @@ class Main extends Component {
       savedArticles: []
 		};
 
-    this.handleSearch = this.handleSearch.bind(this);
     this.clearResults = this.clearResults.bind(this);
-    this.handleSaveClick = this.handleSaveClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
     this.executeSearch = this.executeSearch.bind(this);
+    this.handleSaveClick = this.handleSaveClick.bind(this);
     this.executeSave = this.executeSave.bind(this);
+    this.handleUnsaveClick = this.handleUnsaveClick.bind(this);
+    this.executeUnsave = this.executeUnsave.bind(this);
 	} // end of constructor
 
   componentDidMount() {
@@ -114,6 +116,34 @@ class Main extends Component {
     });
   }
 
+  handleUnsaveClick(articleId, index) {
+    this.executeUnsave(articleId, index);
+  }
+
+  executeUnsave(articleId, index) {
+    // executes post request using axios
+    axios.post('/articles/' + articleId + '/unsave').then(data => {
+      console.log(data);
+      // returns query to get all saved articles in order to rerender Saved component
+      return axios.get('/articles/saved/all');
+    }).then(response => {
+      console.log(response);
+      // instantiates updatedResults as copy of searchResults
+      const updatedResults = [...this.state.searchResults],
+        updatedSaved = response.data;
+      // changes saved value to false for designated element in searchResults
+      updatedResults[index].saved = false;
+      // updates state which will trigger re-rendering
+      this.setState({
+          searchResults: updatedResults,
+          savedArticles: updatedSaved
+      });
+    }).catch(err => {
+      console.log('Error performing save post request');
+      console.log(err);
+    });
+  }
+
 	render() {
     return (
       <main>
@@ -128,6 +158,7 @@ class Main extends Component {
                   searchResults={this.state.searchResults}
                   clearResults={this.clearResults}
                   onSaveClick={this.handleSaveClick}
+                  onUnsaveClick={this.handleUnsaveClick}
                 />
               }
             </Search>
@@ -136,6 +167,7 @@ class Main extends Component {
             <Saved
               savedArticles={this.state.savedArticles}
               onSaveClick={this.handleSaveClick}
+              onUnsaveClick={this.handleUnsaveClick}
             />
           }/>
         </div>

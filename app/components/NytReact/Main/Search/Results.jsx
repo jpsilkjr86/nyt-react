@@ -21,6 +21,7 @@ const Results = props => {
                   key={article._id}
                   article={article}
                   onSaveClick={props.onSaveClick}
+                  onUnsaveClick={props.onUnsaveClick}
                   index={i}
               />
             );
