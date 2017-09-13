@@ -9,8 +9,8 @@ const Saved = props => {
 
     return (
     	<div className="panel panel-default">
-        <div className="panel-heading">
-          <h1>Saved Articles</h1>
+        <div className="panel-heading text-center">
+          <h3>Saved Articles</h3>
         </div>
         <div className="panel-body">
           <SnippetCollection>
