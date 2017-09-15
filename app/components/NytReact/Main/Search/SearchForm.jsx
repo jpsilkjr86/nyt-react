@@ -1,6 +1,8 @@
 // imports React Component class
 import React, { Component } from 'react';
 
+import CustomPanel from '../CustomPanel.jsx';
+
 // declares SearchForm component as ES6 class, which will be this file's export
 class SearchForm extends Component {
 	
@@ -48,7 +50,7 @@ class SearchForm extends Component {
 
 	render() {
     return (
-      <div>
+      <CustomPanel heading="Search New York Times">
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="topic">*Topic</label>
@@ -75,7 +77,7 @@ class SearchForm extends Component {
           <button type="submit" className="btn btn-primary pull-right">Search</button>
         </form>
         <em className="pull-left">*Required fields</em>
-    	</div>
+    	</CustomPanel>
     );
   } // end of render
 

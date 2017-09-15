@@ -2,18 +2,24 @@
 import React, { Component } from 'react';
 
 import SearchForm from './Search/SearchForm.jsx';
-import CustomPanel from './CustomPanel.jsx';
+import Results from './Search/Results.jsx';
 
 // declares Search component as ES6 class, which will be this file's export
 const Search = props => {
 
   return (
     <div>
-      <CustomPanel heading="Search New York Times">
-        <SearchForm onSearch={props.onSearch}/>
-      </CustomPanel>
-      {/* puts props.children here to leave room for results */}
-      {props.children}
+      <SearchForm onSearch={props.onSearch}/>
+      {/* only displays results if the results array is not empty */}
+      {props.searchResults.length != 0 &&
+      <Results
+        searchHistory={props.searchHistory}
+        searchResults={props.searchResults}
+        clearResults={props.clearResults}
+        onSaveClick={props.onSaveClick}
+        onUnsaveClick={props.onUnsaveClick}
+      />
+      }
     </div>
   );
 

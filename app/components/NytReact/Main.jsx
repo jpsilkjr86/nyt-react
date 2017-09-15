@@ -5,7 +5,6 @@ import { Route } from 'react-router-dom';
 // import child components
 import Search from './Main/Search.jsx';
 import Saved from './Main/Saved.jsx';
-import Results from './Main/Search/Results.jsx';
 
 // imports axios for routing / server communication
 import axios from 'axios';
@@ -155,18 +154,14 @@ class Main extends Component {
         <div className="container">
           {/* use "render=" instead of "component=" in order to pass props through routes */}
         	<Route exact path="/" render={(props) => 
-            <Search onSearch={this.handleSearch}>
-              {/* only displays results if the results array is not empty */}
-              {this.state.searchResults.length != 0 &&
-                <Results 
-                  searchHistory={this.state.searchHistory}
-                  searchResults={this.state.searchResults}
-                  clearResults={this.clearResults}
-                  onSaveClick={this.handleSaveClick}
-                  onUnsaveClick={this.handleUnsaveClick}
-                />
-              }
-            </Search>
+            <Search
+              onSearch={this.handleSearch}
+              searchHistory={this.state.searchHistory}
+              searchResults={this.state.searchResults}
+              clearResults={this.clearResults}
+              onSaveClick={this.handleSaveClick}
+              onUnsaveClick={this.handleUnsaveClick}
+            />
           }/>
           <Route path="/articles/saved" render={(props) => 
             <Saved
