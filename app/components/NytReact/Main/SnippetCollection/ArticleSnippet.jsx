@@ -44,7 +44,7 @@ const SaveButton = props => {
     return (
       <button className="btn btn-sm btn-success"
           data-id={article._id}
-          onClick={() => props.onUnsaveClick(article._id, props.index)}>
+          onClick={() => props.onUnsaveClick(article._id)}>
           {/* give onClick a callback or else onSaveClick() will call automatically */}
         <span className="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
       </button>

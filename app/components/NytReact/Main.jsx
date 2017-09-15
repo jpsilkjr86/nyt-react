@@ -116,11 +116,11 @@ class Main extends Component {
     });
   }
 
-  handleUnsaveClick(articleId, index) {
-    this.executeUnsave(articleId, index);
+  handleUnsaveClick(articleId) {
+    this.executeUnsave(articleId);
   }
 
-  executeUnsave(articleId, index) {
+  executeUnsave(articleId) {
     // executes post request using axios
     axios.post('/articles/' + articleId + '/unsave').then(data => {
       console.log(data);
@@ -131,9 +131,14 @@ class Main extends Component {
       // instantiates updatedResults as copy of searchResults
       const updatedResults = [...this.state.searchResults],
         updatedSaved = response.data;
-      // changes saved value to false for designated element in searchResults
-      updatedResults[index].saved = false;
-      // updates state which will trigger re-rendering
+      // loops through updated results to see if article is listed there
+      updatedResults.forEach( element => {
+        // if so set .saved property to false
+        if (element._id === articleId) {
+          element.saved = false;
+        }
+      });
+      // updates state which will trigger re-rendering of Saved and Results
       this.setState({
           searchResults: updatedResults,
           savedArticles: updatedSaved
