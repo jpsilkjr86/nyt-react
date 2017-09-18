@@ -1,6 +1,6 @@
 // imports React Component class
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 // import child components
 import Search from './Main/Search.jsx';
@@ -152,24 +152,29 @@ class Main extends Component {
     return (
       <main>
         <div className="container">
-          {/* use "render=" instead of "component=" in order to pass props through routes */}
-        	<Route exact path="/" render={(props) => 
-            <Search
-              onSearch={this.handleSearch}
-              searchHistory={this.state.searchHistory}
-              searchResults={this.state.searchResults}
-              clearResults={this.clearResults}
-              onSaveClick={this.handleSaveClick}
-              onUnsaveClick={this.handleUnsaveClick}
-            />
-          }/>
-          <Route path="/articles/saved" render={(props) => 
-            <Saved
-              savedArticles={this.state.savedArticles}
-              onSaveClick={this.handleSaveClick}
-              onUnsaveClick={this.handleUnsaveClick}
-            />
-          }/>
+          <Switch>
+            {/* use "render=" instead of "component=" in order to pass props through routes */}
+          	<Route exact path="/search" render={(props) => 
+              <Search
+                onSearch={this.handleSearch}
+                searchHistory={this.state.searchHistory}
+                searchResults={this.state.searchResults}
+                clearResults={this.clearResults}
+                onSaveClick={this.handleSaveClick}
+                onUnsaveClick={this.handleUnsaveClick}
+              />
+            }/>
+            <Route exact path="/articles/saved" render={(props) => 
+              <Saved
+                savedArticles={this.state.savedArticles}
+                onSaveClick={this.handleSaveClick}
+                onUnsaveClick={this.handleUnsaveClick}
+              />
+            }/>
+            {/* use Redirect to ensure that search is default page rendered from index */}
+            <Redirect exact to="/search" />
+            {/* <IndexRoute component={Search}/> */}
+          </Switch>
         </div>
       </main>
     );

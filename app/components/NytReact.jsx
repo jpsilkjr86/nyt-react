@@ -1,5 +1,6 @@
 // react dependencies
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 
 // import child components
 import Main from './NytReact/Main.jsx';
@@ -17,7 +18,7 @@ class NytReact extends Component {
 		return (
 	    <div>
 	      <Header/>
-	      <Main/>
+	      <Route path="/" component={Main}/>
 	    </div>
 		);
 	}
