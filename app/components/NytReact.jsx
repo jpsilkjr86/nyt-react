@@ -1,23 +1,27 @@
 // react dependencies
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
 
 // import child components
 import Main from './NytReact/Main.jsx';
 import Header from './NytReact/Header.jsx';
 
-// export directly as an element rather than a class in order to render properly.
-// wrap everything in Router to take advantage of react-routing. wrap Header and Main
-// in div because Router can only have one direct child element.
-module.exports = (
-  <Router>
-    <div>
-      <Header/>
-      <Main/>
-    </div>
-  </Router>
-);
+// declares NytReact component as ES6 class, which will be this file's export.
+// NytReact will be the parent component that stores logged-in state,
+// which is necessary info that will determine all other app behavior.
+class NytReact extends Component {
+	constructor() {
+		super();
+	}
+
+	render() {
+		return (
+	    <div>
+	      <Header/>
+	      <Main/>
+	    </div>
+		);
+	}
+}
+
+// exports NytReact component for other files to use
+export default NytReact;

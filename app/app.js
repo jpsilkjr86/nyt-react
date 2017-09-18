@@ -2,8 +2,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-// imports parent component
-import NytReact from './components/NytReact.jsx';
+// imports wrapping router component
+import router from './components/router.jsx';
 
-// renders parent component to DOM id "#app"
-render(NytReact, document.getElementById("app"));
+// renders wrapping router component to DOM id "#app"
+render(router, document.getElementById("app"));
