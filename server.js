@@ -2,22 +2,30 @@
 const express = require('express'),
 	bodyParser = require('body-parser'),
   logger = require('morgan'),
-  mongoose = require('mongoose');
+  mongoose = require('mongoose'),
+  fs = require('fs');
 
 // sets up express app
 const app = express();
 const port = process.env.PORT || 3000;
 
 // ================ Mongoose Configuration ================
+
 // configures mongoose promises to ES6 Promises
 mongoose.Promise = Promise;
+
 // sets database configuration
-const remoteUri = 'mongodb://heroku_6zgtwlpt:2u5oir8pm0sp4qvkrgvmsrkb7c@ds129394.mlab.com:29394/heroku_6zgtwlpt';
-mongoose.connect(remoteUri, { useMongoClient: true });
-// for setting up local database connection (make sure to create 'nyt-react' 
-// database first on your mongoDB before running this)
-// const localUri = 'mongodb://localhost/nyt-react';
-// mongoose.connect(localUri, { useMongoClient: true });
+if (process.env.PROD_MONGODB) {
+  console.log('CONNECTING TO MONGODB IN PRODUCTION MODE...');
+  mongoose.connect(process.env.PROD_MONGODB, { useMongoClient: true });
+}
+else if (fs.existsSync('./config/config.json')){
+  console.log('CONNECTING TO MONGODB IN DEVELOPMENT MODE...');
+  var URI = require('./config/config.json')['development']['uri'];
+  mongoose.connect(URI, { useMongoClient: true });
+} else {
+  throw new Error('ERROR: NO DATABASE URI SPECIFIED.');
+}
 
 // saves connection as variable
 const db = mongoose.connection;
