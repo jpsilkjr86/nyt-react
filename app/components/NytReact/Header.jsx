@@ -39,7 +39,8 @@ class Header extends Component {
 						<div className="collapse navbar-collapse" id="navbar-menu">
 							{/* right-floating navbar  */}
 							<ul className="nav navbar-nav navbar-right">
-								<li><Link to="/">Home</Link></li>
+								<li><Link to="/search">Search</Link></li>
+								<li><Link to="/results">Results</Link></li>
 								<li><Link to="/articles/saved">Saved Articles</Link></li>
 							</ul> {/* end of navbar-right */}
 						</div>{/* end of navbar-collapse */}

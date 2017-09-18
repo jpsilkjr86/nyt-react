@@ -5,6 +5,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 // import child components
 import Search from './Main/Search.jsx';
 import Saved from './Main/Saved.jsx';
+import Results from './Main/Results.jsx';
 
 // imports axios for routing / server communication
 import axios from 'axios';
@@ -152,11 +153,16 @@ class Main extends Component {
     return (
       <main>
         <div className="container">
+          {/* wraps everything in <Switch> to ensure only one route is rendered */}
           <Switch>
             {/* use "render=" instead of "component=" in order to pass props through routes */}
           	<Route exact path="/search" render={(props) => 
               <Search
                 onSearch={this.handleSearch}
+              />
+            }/>
+            <Route exact path="/results" render={(props) => 
+              <Results
                 searchHistory={this.state.searchHistory}
                 searchResults={this.state.searchResults}
                 clearResults={this.clearResults}
@@ -173,7 +179,6 @@ class Main extends Component {
             }/>
             {/* use Redirect to ensure that search is default page rendered from index */}
             <Redirect exact to="/search" />
-            {/* <IndexRoute component={Search}/> */}
           </Switch>
         </div>
       </main>
