@@ -3,7 +3,8 @@ const express = require('express'),
 	bodyParser = require('body-parser'),
   logger = require('morgan'),
   mongoose = require('mongoose'),
-  fs = require('fs');
+  fs = require('fs'),
+  path = require('path');
 
 // sets up express app
 const app = express();
@@ -84,5 +85,9 @@ db.once('open', function() {
 		console.log('App listening on port ' + port);
 		// sets up routes
 		require('./controllers/api-routes.js')(app);
+    // catch-all get route to ensure SPA works correctly (with react-router)
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname + '/public/index.html'));
+    });
 	});
 });
