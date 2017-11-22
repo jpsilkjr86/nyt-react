@@ -42,11 +42,11 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 // serves public directory as static, enabling html pages to link with their assets
 app.use(express.static('public'));
 
-// ============ Webpack Middleware Configurations (Development Only) ============
-// first checks to make sure NODE_ENV is in development mode (ie not production mode)
-if (process.env.NODE_ENV !== 'production') {
+// ============ Webpack Middleware Configurations (Development Only - "npm run dev") ============
+// first checks to make sure NODE_ENV is in development mode
+if (process.env.NODE_ENV === 'development') {
   console.log('NODE_ENV is in development mode.'
-  	+ '\nConfiguring webpack-dev-middleware and webpack-hot-middleware...');
+    + '\nConfiguring webpack-dev-middleware and webpack-hot-middleware...');
 
   // dependendies for webpack middleware
   const webpack = require('webpack'),
