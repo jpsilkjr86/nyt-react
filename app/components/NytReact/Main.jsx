@@ -23,8 +23,7 @@ class Main extends Component {
       searchHistory: [],
       searchResults: [],
       savedArticles: [],
-      loggedIn: props.loggedIn,
-      didMount: false
+      loggedIn: props.loggedIn
 		};
     
     this.clearResults = this.clearResults.bind(this);
@@ -37,12 +36,13 @@ class Main extends Component {
 	} // end of constructor
 
   componentDidMount() {
+    console.log('Main mounted');
+    const { userId } = this.props.user;
     // retrieves saved articles
-    axios.get('/articles/saved/all').then(response => {
+    axios.get(`/users/${userId}/articles/saved/all`).then(response => {
       const savedArticles = response.data;
       this.setState({
-        savedArticles: savedArticles,
-        didMount: true
+        savedArticles: savedArticles
       });
     }).catch(err => {
       console.log('Error retrieving saved articles on componentDidMount');
@@ -94,12 +94,13 @@ class Main extends Component {
   // updates both searchResults and savedArticles so that
   // saved value is reflected in both Results and Saved components
   executeSave(articleId, index) {
+    const { userId } = this.props.user;
     // executes post request using axios
-    axios.post('/articles/' + articleId + '/save').then(data => {
+    axios.post(`/users/${userId}/articles/${articleId}/save`).then(data => {
       console.log(data);
       // returns next promise to continue promise chain, getting
       // data for article from article id
-      return axios.get('/articles/' + articleId);
+      return axios.get(`/users/${userId}/articles/${articleId}`);
     }).then(response => {
       const newSavedArticle = response.data;
       // instantiates updatedResults as copy of searchResults
@@ -124,11 +125,12 @@ class Main extends Component {
   }
 
   executeUnsave(articleId) {
+    const { userId } = this.props.user;
     // executes post request using axios
-    axios.post('/articles/' + articleId + '/unsave').then(data => {
+    axios.post(`/users/${userId}/articles/${articleId}/unsave`).then(data => {
       console.log(data);
       // returns query to get all saved articles in order to rerender Saved component
-      return axios.get('/articles/saved/all');
+      return axios.get(`/users/${userId}/articles/saved/all`);
     }).then(response => {
       console.log(response);
       // instantiates updatedResults as copy of searchResults
@@ -173,7 +175,7 @@ class Main extends Component {
                 onUnsaveClick={this.handleUnsaveClick}
               />
             }/>
-            <Route exact path="/articles/saved" render={(props) => 
+            <Route exact path={`/users/${this.props.user.userId}/articles/saved`} render={(props) =>
               <Saved
                 savedArticles={this.state.savedArticles}
                 onSaveClick={this.handleSaveClick}
@@ -181,10 +183,7 @@ class Main extends Component {
               />
             }/>
             {/* use Redirect to ensure that search is default page rendered from index */}
-            {/*<Redirect exact to="/search" />*/}
-            {this.state.didMount && 
-              <Redirect exact from="/" exact to="/search" />
-            }
+            <Redirect exact from="/" exact to="/search" />
           </Switch>
         </div>
       </main>
@@ -195,3 +194,18 @@ class Main extends Component {
 
 // exports Main component for other files to use
 export default Main;
+
+
+/*
+<Route exact path={`/users/${this.props.user.userId}/articles/saved`} render={(props) =>
+              this.state.loadedSaved ? (
+                <Saved
+                  savedArticles={this.state.savedArticles}
+                  onSaveClick={this.handleSaveClick}
+                  onUnsaveClick={this.handleUnsaveClick}
+                />
+              ) : (
+                <div>Loading...</div>
+              )
+            }/>
+            */

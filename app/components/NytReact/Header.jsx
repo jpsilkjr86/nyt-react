@@ -25,7 +25,12 @@ const Header = props => {
 					{/* collect the nav links, forms, and other content for toggling collapse */}
 					<div className="collapse navbar-collapse" id="navbar-menu">
 						{/* right-floating navbar  */}
-						<NavRight loggedIn={props.loggedIn} logOut={props.logOut} logIn={props.logIn}/>
+						<NavRight
+							loggedIn={props.loggedIn}
+							logOut={props.logOut}
+							logIn={props.logIn}
+							userId={props.user.userId}
+						/>
 					</div>{/* end of navbar-collapse */}
 				</div>{/* end of container */}
 			</nav> {/* end of nav */}
@@ -33,13 +38,13 @@ const Header = props => {
   );
 }; // end of Header
 
-const NavRight = ({loggedIn, logOut, logIn}) => {
+const NavRight = ({loggedIn, logOut, logIn, userId}) => {
 	return (
 		loggedIn ? (
 			<ul className="nav navbar-nav navbar-right">
 				<li><Link to="/search">Search</Link></li>
 				<li><Link to="/results">Results</Link></li>
-				<li><Link to="/articles/saved">Saved Articles</Link></li>
+				<li><Link to={`/users/${userId}/articles/saved`}>Saved Articles</Link></li>
 				<li><a href="#" onClick={logOut}>Log Out</a></li>
 			</ul>
 		) : (

@@ -30,7 +30,7 @@ module.exports = app => {
 	});
 
 	// get route for obtaining saved articles in json
-	app.get('/articles/saved/all', (req, res) => {
+	app.get('/users/:userid/articles/saved/all', (req, res) => {
 		console.log('RETRIEVING SAVED ARTICLES...');
 		// calls helpers function for retrieving saved articles
 		helpers.articles.getSaved().then(results => {
@@ -59,7 +59,7 @@ module.exports = app => {
 	});
 
 	// route for saving an article
-	app.post('/articles/:id/save', (req, res) => {
+	app.post('/users/:userid/articles/:id/save', (req, res) => {
 		console.log('SAVING ARTICLE OF ID ' + req.params.id + '...');
 		// saves article through helper function
 		helpers.articles.save(req.params.id).then(result => {
@@ -74,7 +74,7 @@ module.exports = app => {
 	});
 
 	// route for unsaving an article
-	app.post('/articles/:id/unsave', (req, res) => {
+	app.post('/users/:userid/articles/:id/unsave', (req, res) => {
 		console.log('UNSAVING ARTICLE OF ID ' + req.params.id + '...');
 		// unsaves article through helper function
 		helpers.articles.unsave(req.params.id).then(result => {

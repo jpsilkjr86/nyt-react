@@ -21,8 +21,14 @@ class NytReact extends Component {
 		// log-in checks should be placed in componentDidMount.)
 		const loggedIn = localStorage.getItem('loggedIn') == 'true' ? true : false;
 		console.log('loggedIn:', loggedIn);
-		// set initial state
-    this.state = { loggedIn };
+		// set initial state. 'guest' is default for simulated log-in functionality
+    this.state = { 
+    	loggedIn,
+    	user: {
+    		userId: 'guest',
+    		username: 'Guest'
+    	}
+    };
 
 		this.handleLogIn = this.handleLogIn.bind(this);
 		this.handleLogOut = this.handleLogOut.bind(this);
@@ -51,7 +57,12 @@ class NytReact extends Component {
 	render() {
 		return (
 	    <div>
-	      <Header logIn={this.handleLogIn} logOut={this.handleLogOut} loggedIn={this.state.loggedIn}/>
+	      <Header
+	      	logIn={this.handleLogIn}
+	      	logOut={this.handleLogOut}
+	      	loggedIn={this.state.loggedIn}
+	      	user={this.state.user}
+	      />
 	      <Switch>
 		      <Route exact path="/login" render={props => 
 		      	<Login logIn={this.handleLogIn} loggedIn={this.state.loggedIn}/>
@@ -59,7 +70,7 @@ class NytReact extends Component {
 		    	{/* This route ensures user is logged in before rendering anything in Main*/}
 		      <Route path="/" render={props => (
 				    this.state.loggedIn ? (
-				      <Main loggedIn={this.state.loggedIn}/>
+				      <Main loggedIn={this.state.loggedIn} user={this.state.user}/>
 				    ) : (
 				      <Redirect exact to="/login"/>
 				    )
