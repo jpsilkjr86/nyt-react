@@ -1,6 +1,6 @@
 // imports React Component class
 import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, Link } from 'react-router-dom';
 
 // import child components
 import Search from './Main/Search.jsx';
@@ -14,17 +14,19 @@ import axios from 'axios';
 class Main extends Component {
 	
 	// constructor has no props since this is the parent element
-	constructor() {
-    super();
+	constructor(props) {
+    super(props);
 
     // set initial state
-    this.state = { 
+    this.state = {
 			searchQuery: '',
       searchHistory: [],
       searchResults: [],
-      savedArticles: []
+      savedArticles: [],
+      loggedIn: props.loggedIn,
+      didMount: false
 		};
-
+    
     this.clearResults = this.clearResults.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.executeSearch = this.executeSearch.bind(this);
@@ -38,8 +40,9 @@ class Main extends Component {
     // retrieves saved articles
     axios.get('/articles/saved/all').then(response => {
       const savedArticles = response.data;
-      this.setState({savedArticles}, () => {
-        console.log(this.state.savedArticles);
+      this.setState({
+        savedArticles: savedArticles,
+        didMount: true
       });
     }).catch(err => {
       console.log('Error retrieving saved articles on componentDidMount');
@@ -178,7 +181,10 @@ class Main extends Component {
               />
             }/>
             {/* use Redirect to ensure that search is default page rendered from index */}
-            <Redirect exact to="/search" />
+            {/*<Redirect exact to="/search" />*/}
+            {this.state.didMount && 
+              <Redirect exact from="/" exact to="/search" />
+            }
           </Switch>
         </div>
       </main>
