@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 // declares stateless component as pure functional component
 const CustomPanel = props => {
   return (
-    <div className="panel panel-default">
+    <div className="panel panel-default panel-custom">
       <div className="panel-heading">
         <h3 className="text-center">{props.heading}</h3>
       </div>

@@ -11,10 +11,15 @@ const Login = props => {
 		props.loggedIn ? (
 			<Redirect exact to="/"/>
 		) : (
-	  	<div className="container">
-		    <CustomPanel heading="Sign In">
-		      <button className="btn btn-primary btn-lg center-block" onClick={props.logIn}>Sign In</button>
-		    </CustomPanel>
+	  	<div className="container-fluid">
+		    <div className="jumbotron jumbotron-bkg">
+		    	<h1>Welcome to New York Times Article Search - React!</h1>
+		    	<div className="row">
+		    		<div className="col-xs-10 col-xs-offset-1 col-sm-offset-4 col-sm-4 col-md-offset-5 col-md-2">
+		      		<button className="btn btn-primary btn-lg btn-block" onClick={props.logIn}>Sign In</button>
+		      	</div>
+		      </div>
+		    </div>
 	    </div>
 		)
   );

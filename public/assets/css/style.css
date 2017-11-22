@@ -1,0 +1,37 @@
+.jumbotron-bkg {
+	background-image: url("../img/ny.jpg");
+	position: relative;
+	background-position: center;
+	background-size: cover;
+	min-height: 400px;
+}
+
+.jumbotron-bkg h1 {
+	color: #eee;
+	font-size: 3em;
+	text-shadow: 2px 2px 2px #111;
+	text-align: center;	
+}
+
+.panel-custom > .panel-heading {
+	background-image: url("../img/ny.jpg");
+	position: relative;
+	background-position: center;
+	background-size: cover;
+
+	color: #eee;
+	font-size: 3em;
+	text-shadow: 2px 2px 2px #111;
+	text-align: center;	
+}
+
+.jumbotron-bkg button {
+	margin: 15px 0;
+}
+
+@media screen and (max-width: 640px) {
+	.jumbotron-bkg h1 {
+		/*height: 215px;*/
+		font-size: 2em;
+	}
+}
