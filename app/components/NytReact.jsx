@@ -15,22 +15,37 @@ class NytReact extends Component {
 	constructor() {
 		super();
 
+		// gets loggedIn value from local storage to simulate log-in functionality.
+		// sets equal to boolean true or false depending on localStorage key 'loggedIn'.
+		// (put in constructor since localStorage calls are synchronous. Otherwise real
+		// log-in checks should be placed in componentDidMount.)
+		const loggedIn = localStorage.getItem('loggedIn') == 'true' ? true : false;
+		console.log('loggedIn:', loggedIn);
 		// set initial state
-    this.state = { 
-			loggedIn: false
-		};
+    this.state = { loggedIn };
 
 		this.handleLogIn = this.handleLogIn.bind(this);
 		this.handleLogOut = this.handleLogOut.bind(this);
 	}
 
 	handleLogIn() {
-		this.setState({ loggedIn: true });
+		// sets both this.state.loggedIn and localStorage key 'loggedIn' to true
+		this.setState({
+			loggedIn: true
+		}, () => {
+			localStorage.setItem('loggedIn', 'true');
+			console.log('loggedIn:', localStorage.getItem('loggedIn'));
+		});
 	}
 
 	handleLogOut() {
-		console.log(this.state);
-		this.setState({ loggedIn: false });
+		// sets both this.state.loggedIn and localStorage key 'loggedIn' to true
+		this.setState({
+			loggedIn: false
+		}, () => {
+			localStorage.setItem('loggedIn', 'false');
+			console.log('loggedIn:', localStorage.getItem('loggedIn'));
+		});
 	}
 
 	render() {
