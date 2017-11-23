@@ -6,6 +6,7 @@ import { Route, Switch, Redirect, Link } from 'react-router-dom';
 import Search from './Main/Search.jsx';
 import Saved from './Main/Saved.jsx';
 import Results from './Main/Results.jsx';
+import NoMatch from './Main/NoMatch.jsx';
 
 // imports axios for routing / server communication
 import axios from 'axios';
@@ -183,7 +184,9 @@ class Main extends Component {
               />
             }/>
             {/* use Redirect to ensure that search is default page rendered from index */}
-            <Redirect exact from="/" exact to="/search" />
+            <Redirect exact from="/" to="/search" />
+            {/* NoMatch 404 page is default for any other route */}
+            <Route component={NoMatch}/>
           </Switch>
         </div>
       </main>
